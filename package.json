@@ -1,0 +1,17 @@
+{
+  "name": "ratelimited",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ratelimited.js",
+  "scripts": {
+    "babel": "babel --presets es2015,stage-0 -d . src",                                                                                              
+    "build": "npm run babel",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.4.5",
+    "queue-up": "^1.2.0"
+  }
+}
