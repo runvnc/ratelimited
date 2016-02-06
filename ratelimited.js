@@ -1,24 +1,36 @@
-import Queue from 'queue-up';
+'use strict';
 
-let queues = {};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.callInterval = callInterval;
+exports.rateLimited = rateLimited;
+
+var _queueUp = require('queue-up');
+
+var _queueUp2 = _interopRequireDefault(_queueUp);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var queues = {};
 
 function getQueue(id) {
- 
-  if (!(queues[id])) {
-    configInterval(id, 1000);    
+  if (!queues[id]) {
+    callInterval(id, 1000);
   }
-
   return queues[id];
 }
 
-export function callInterval(id, ms) {
-  queues[id] = new Queue(ms);
+function callInterval(id, ms) {
+  queues[id] = new _queueUp2.default(ms);
 }
 
-export function rateLimited(id, fn, args...) {
-  getQueue(id).up(args)
-  .then( params... => fn(params) )
-  .catch( e => console.error(e) );
+function rateLimited(id, fn) {
+  var _this = this;
+
+  getQueue(id).up({ args: Array.prototype.slice.call(arguments, 2) }).then(function (params) {
+    fn.apply(_this, params.args);
+  }).catch(function (e) {
+    console.error(e);
+  });
 }
-
-
