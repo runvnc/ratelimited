@@ -26,10 +26,10 @@ function callInterval(id, ms) {
 }
 
 function rateLimited(id, fn) {
-  var _this = this;
+  var args = Array.prototype.slice.call(arguments, 2);
 
-  getQueue(id).up({ args: Array.prototype.slice.call(arguments, 2) }).then(function (params) {
-    fn.apply(_this, params.args);
+  getQueue(id).up(function () {
+    return fn.apply(null, args);
   }).catch(function (e) {
     console.error(e);
   });
